@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "name": "reference-generator",
+    "description": "Generate markdown or latex reference code.",
+    "version": "0.0.1",
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ],
+        "persistent": false
+    },
+    "permissions": [
+        "contextMenus",
+        "storage"
+    ]
+}
