@@ -32,6 +32,18 @@ chrome.runtime.onInstalled.addListener(() => {
         parentId: "Reference generator",
         contexts: ["all"],
     });
+    chrome.contextMenus.create({
+        id: "MarkDownLink_selected",
+        title: "選択部分をタイトルとしたMarkDownのリンク形式で取得",
+        parentId: "Reference generator",
+        contexts: ["selection"],
+    });
+    chrome.contextMenus.create({
+        id: "BibTexLink_selected",
+        title: "選択部分をタイトルとしたBibTexのリンク形式で取得",
+        parentId: "Reference generator",
+        contexts: ["selection"],
+    });
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -44,6 +56,16 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         const link = `
 @Misc{${title},
     title=${title},
+    howpublished={\\url{${url}}}
+}`;
+        toClipBoard(link);
+    } else if (info.menuItemId == "MarkDownLink_selected") {
+        const link = `[${info.selectionText}](${url})`
+        toClipBoard(link);
+    } else if (info.menuItemId == "BibTexLink") {
+        const link = `
+@Misc{${info.selectionText},
+    title=${info.selectionText},
     howpublished={\\url{${url}}}
 }`;
         toClipBoard(link);
